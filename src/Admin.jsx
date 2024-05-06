@@ -6,6 +6,7 @@ import CreateUser from './CreateUser';
 import DatosTablaUser from './DatosTablaUser';
 
 function Admin() {
+  const [clientes, setClientes] = useState([]);
   const [formData, setFormData] = useState({
     // Definir el estado inicial del formulario
     nombreUsuario: '',
@@ -81,6 +82,7 @@ function Admin() {
           fechaEstimadaFinalizacion: ''
         });
         fetchActivityLog(); // Actualizar registros de actividad después de la creación
+        fetchData()
       } else if (response.status === 400) {
         // Si la cedula ya está registrado, mostrar un mensaje de error
         alert('La cedula ya está registrada. Por favor, introduzca otra cedula.');
@@ -179,6 +181,19 @@ function Admin() {
     }
   };
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/datos');
+      if (response.ok) {
+        const data = await response.json();
+        setClientes(data); // Almacenamos los datos de los clientes en el estado local
+      } else {
+        console.error('Error al obtener datos:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error al obtener datos:', error);
+    }
+  };
   return (
     <div>
       <div className="admin-container">
@@ -357,7 +372,8 @@ function Admin() {
             </div>
             )}
       
-      <DatosTabla onUpdateForm={handleUpdateForm} tipo={tipo} />
+      <DatosTabla datos={clientes} onUpdateForm={handleUpdateForm} tipo={tipo} actualizarDatos={fetchData} />
+
     </div>
   );
 }

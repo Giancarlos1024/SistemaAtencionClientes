@@ -5,7 +5,7 @@ import "jspdf-autotable";
 import Logoimg from "./img/logo.png";
 import { PDFViewer, Document, Page, View, Text } from '@react-pdf/renderer';
 
-function DatosTabla({ onUpdateForm, tipo }) {
+function DatosTabla({ onUpdateForm, tipo, actualizarDatos }) {
   const [datos, setDatos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchOption, setSearchOption] = useState("cedula");
@@ -14,7 +14,7 @@ function DatosTabla({ onUpdateForm, tipo }) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [actualizarDatos]);
 
   const fetchData = async () => {
     try {
