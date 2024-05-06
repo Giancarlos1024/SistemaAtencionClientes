@@ -1,0 +1,26 @@
+.divCreateUser{
+    width:auto;
+    padding: 0px;
+    margin-top:0px;
+    margin: 0px 25px;
+}
+.divfor{
+    
+    padding: 5px 20px;
+}
+.buttonUser{
+    margin-left: 20px;
+    margin-top: 10px;
+    width: auto;
+    height: auto;
+    border-radius: 5px;
+}
+.UserForm{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+.DataUser{
+    margin-left: 20px;
+    margin-top: 10px;
+    padding: 10px 0px;
+}

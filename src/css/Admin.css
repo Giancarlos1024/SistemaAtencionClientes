@@ -1,0 +1,100 @@
+/* Admin.css */
+
+.admin-container {
+    max-width: auto;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .admin-container > h1{
+    text-align: center;
+  }
+  
+  .admin-form {
+    display: flex;
+    padding: 20px;
+    border-radius: 8px;
+    padding: 10px;
+    width: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    justify-content: space-between;
+  }
+  
+  .admin-form-group {
+    margin-bottom: 0px;
+    padding: 0px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-form-group h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .admin-form input[type="text"],
+  .admin-form input[type="email"],
+  .admin-form input[type="datetime-local"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .admin-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .admin-button:hover {
+    background-color: #0056b3;
+  }
+
+  .FormulariosPanel{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    /* background-color: yellow; */
+    
+  }
+  .formularios{
+    /* background-color: aqua; */
+    width: auto;
+    margin: 0px 10px;
+  }
+  .Subformularios{
+    display: flex;
+    justify-content: center;
+    /* background-color: palegreen; */
+  }
+  .buttonClientes{
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .activity-log-container{
+    /* background-color: aqua; */
+    display: flex;
+
+   
+    justify-content: center;
+  }
+  .activity-log-table{
+    /* background-color: orange; */
+    width: 500px;
+
+  }
+  caption{
+    padding: 10px 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }

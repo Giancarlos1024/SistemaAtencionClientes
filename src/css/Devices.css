@@ -1,0 +1,27 @@
+.devices-container {
+    margin-top: 20px;
+  }
+  
+  .devices-container h2 {
+    margin-bottom: 10px;
+  }
+  
+  .devices-container button {
+    margin-bottom: 10px;
+  }
+  
+  .devices-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .devices-container th, .devices-container td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .devices-container th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  

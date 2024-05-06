@@ -1,0 +1,61 @@
+/* Estilos para el modal */
+.modal {
+  display: none; /* Ocultar el modal por defecto */
+  position: fixed; /* Posición fija para que el modal no se desplace con el desplazamiento de la página */
+  z-index: 1; /* Colocar el modal por encima de otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Altura completa */
+  overflow: auto; /* Permitir desplazamiento si el contenido del modal es demasiado grande */
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro */
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: #fefefe; /* Fondo blanco */
+  margin: 15% auto; /* Margen superior e inferior automático y centrado horizontalmente */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Ancho del contenido del modal */
+  height: auto;
+}
+
+/* Botón para cerrar el modal */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* Estilos para la tabla dentro del modal */
+.modal-content table {
+  width: 100%; /* Ancho completo de la tabla */
+  border-collapse: collapse; /* Colapsar los bordes de la tabla */
+}
+
+/* Estilos para las celdas de la tabla */
+.modal-content th,
+.modal-content td {
+  border: 1px solid #dddddd; /* Borde delgada entre celdas */
+  padding: 8px; /* Espaciado interno */
+  text-align: left; /* Alineación del texto a la izquierda */
+}
+
+/* Estilos para las filas impares de la tabla */
+.modal-content tr:nth-child(odd) {
+  background-color: #f2f2f2; /* Fondo gris claro para filas impares */
+}
+
+/* Estilos para el encabezado de la tabla */
+.modal-content th {
+  background-color: #4CAF50; /* Fondo verde oscuro para el encabezado */
+  color: white; /* Texto blanco para el encabezado */
+}
