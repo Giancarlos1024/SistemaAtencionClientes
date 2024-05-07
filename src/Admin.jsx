@@ -52,11 +52,10 @@ function Admin() {
       // Formatear las fechas antes de enviar
       const formattedData = {
         ...formData,
-        // Agregar 'T' entre la fecha y la hora para el formato de fecha-fecha de SQL Server
         fechaInicio: formData.fechaInicio.replace('T', ' '),
         fechaEstimadaFinalizacion: formData.fechaEstimadaFinalizacion.replace('T', ' ')
       };
-
+  
       const response = await fetch('http://localhost:3000/crear', {
         method: 'POST',
         headers: {
@@ -64,10 +63,9 @@ function Admin() {
         },
         body: JSON.stringify(formattedData)
       });
-
+  
       if (response.ok) {
         console.log('Datos creados exitosamente');
-        // Limpiar el formulario después de la creación exitosa
         setFormData({
           nombreUsuario: '',
           apellidoUsuario: '',
@@ -81,31 +79,30 @@ function Admin() {
           fechaInicio: '',
           fechaEstimadaFinalizacion: ''
         });
-        fetchActivityLog(); // Actualizar registros de actividad después de la creación
-        fetchData()
+        await fetchActivityLog(); // Actualizar registros de actividad después de la creación
+        fetchData();
       } else if (response.status === 400) {
-        // Si la cedula ya está registrado, mostrar un mensaje de error
         alert('La cedula ya está registrada. Por favor, introduzca otra cedula.');
       } else {
         console.error('Error al crear datos:', response.statusText);
       }
-
-      // Registro de la acción de creación de datos
+  
       const creationLogEntry = {
         username: username,
         action: 'Crear Datos',
+        codigoTicket: formData.codigoTicket,
         timestamp: new Date().toISOString()
       };
       await sendActivityLog(creationLogEntry);
-
+      await fetchActivityLog();
+  
     } catch (error) {
       console.error('Error al crear datos:', error);
     }
   };
-
+  
   const handleConfirmUpdate = async () => {
     try {
-      console.log('Datos a enviar al servidor:', formData);
       const response = await fetch(`http://localhost:3000/datos/${formData.codigoTicket}`, {
         method: 'PUT',
         headers: {
@@ -128,16 +125,16 @@ function Admin() {
           fechaInicio: '',
           fechaEstimadaFinalizacion: ''
         });
-
-        // Registro de la acción de actualización de datos
+  
         const updateLogEntry = {
           username: username,
           action: 'Confirmar Actualizacion',
+          codigoTicket: formData.codigoTicket,
           timestamp: new Date().toISOString()
         };
         await sendActivityLog(updateLogEntry);
-
-        fetchActivityLog(); // Actualizar registros de actividad después de la actualización
+  
+        await fetchActivityLog(); // Actualizar registros de actividad después de la actualización
       } else {
         console.error('Error al actualizar datos:', response.statusText);
       }
@@ -147,24 +144,25 @@ function Admin() {
   };
 
   // Función para enviar registros de actividad al servidor
-  const sendActivityLog = async (logEntry) => {
-    try {
-      const response = await fetch('http://localhost:3000/activity-log', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(logEntry)
-      });
-      if (response.ok) {
-        console.log('Registro de actividad enviado con éxito');
-      } else {
-        console.error('Error al enviar registro de actividad:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error al enviar registro de actividad:', error);
+  // Función para enviar registros de actividad al servidor
+const sendActivityLog = async (logEntry) => {
+  try {
+    const response = await fetch('http://localhost:3000/activity-log', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(logEntry)
+    });
+    if (response.ok) {
+      console.log('Registro de actividad enviado con éxito');
+    } else {
+      console.error('Error al enviar registro de actividad:', response.statusText);
     }
-  };
+  } catch (error) {
+    console.error('Error al enviar registro de actividad:', error);
+  }
+};
 
   // Función para obtener registros de actividad del servidor
   const fetchActivityLog = async () => {
@@ -355,14 +353,16 @@ function Admin() {
                     <tr>
                       <th>Usuario</th>
                       <th>Acción</th>
+                      <th>Codigo Ticket</th>
                       <th>Fecha y Hora</th>
                     </tr>
                   </thead>
                   <tbody>
                     {activityLog.map((logEntry, index) => (
                       <tr key={index}>
-                        <td>{logEntry.usuario}</td> 
+                        <td>{logEntry.usuario}</td>
                         <td>{logEntry.action}</td>
+                        <td>{logEntry.codigoTicket}</td>
                         <td>{new Date(logEntry.timestamp).toLocaleString()}</td>
                       </tr>
                     ))}

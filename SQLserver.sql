@@ -56,7 +56,8 @@ CREATE TABLE ActivityLog (
     id INT PRIMARY KEY IDENTITY,
     action NVARCHAR(255) NOT NULL,
     timestamp DATETIME NOT NULL,
-    usuario INT FOREIGN KEY REFERENCES Users(id)
+    usuario INT FOREIGN KEY REFERENCES Users(id),
+	codigoTicket NVARCHAR(50) NULL
 );
 
 
@@ -102,5 +103,8 @@ SELECT * FROM EstadosReparacion;
 SELECT * FROM Reparaciones;
 SELECT * FROM Users;
 SELECT * FROM ActivityLog;
+
+
+-- DELETE FROM ActivityLog;
 
 

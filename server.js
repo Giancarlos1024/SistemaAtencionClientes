@@ -728,13 +728,13 @@ app.get('/activity-log', async (req, res) => {
     // Realizar una consulta para obtener los registros de actividad
     await sql.connect(config);
     const query = `
-      SELECT ActivityLog.id, ActivityLog.action, ActivityLog.timestamp, Users.usuario
+      SELECT ActivityLog.id, ActivityLog.action, ActivityLog.timestamp, Users.usuario, ActivityLog.codigoTicket
       FROM ActivityLog
       INNER JOIN Users ON ActivityLog.usuario = Users.id
     `;
     const result = await sql.query(query);
     const activityLog = result.recordset; // Suponiendo que estás utilizando mssql y el resultado es un objeto con una propiedad "recordset"
-
+    console.log(activityLog);
     // Enviar los registros de actividad al cliente
     res.json(activityLog);
   } catch (error) {
@@ -748,14 +748,18 @@ app.post('/activity-log', async (req, res) => {
     // Obtener los datos del registro de actividad del cuerpo de la solicitud
     await sql.connect(config);
     const logEntry = req.body;
-    console.log("Datos desde el backend",logEntry);
+    console.log("Datos desde el backend", logEntry);
+
     // Realizar una consulta para obtener el id del usuario correspondiente al nombre de usuario
     const userIdQuery = `SELECT id FROM Users WHERE usuario = '${logEntry.username}'`;
     const userIdResult = await sql.query(userIdQuery);
     const userId = userIdResult.recordset[0].id; // Suponiendo que estás utilizando mssql y el resultado es un objeto con una propiedad "recordset"
 
     // Insertar el registro de actividad en la tabla ActivityLog
-    const insertQuery = `INSERT INTO ActivityLog (action, timestamp, usuario) VALUES ('${logEntry.action}', '${logEntry.timestamp}', ${userId})`;
+    const insertQuery = `
+      INSERT INTO ActivityLog (action, timestamp, usuario, codigoTicket)
+      VALUES ('${logEntry.action}', '${logEntry.timestamp}', ${userId}, '${logEntry.codigoTicket}')
+    `;
     await sql.query(insertQuery);
 
     console.log('Registro de actividad insertado correctamente');
@@ -765,6 +769,7 @@ app.post('/activity-log', async (req, res) => {
     res.status(500).send('Error interno del servidor');
   }
 });
+
 
 
 
